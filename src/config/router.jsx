@@ -1,6 +1,7 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import Signup from "../components/Signup";
 import Req from "../components/Req";
+import Tracker from "../components/Tracker";
 
 const router = createBrowserRouter([
     {

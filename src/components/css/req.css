@@ -12,7 +12,7 @@
 .container h1 {
   font-size: 36px;
   text-align: center;
-  color: #D9C89E;
+  color: #d9c89e;
 }
 
 .container .input-box {
@@ -45,7 +45,7 @@
   width: 100%;
   height: 45px;
   background: #fff;
-  border: 2px solid #D9C89E;
+  border: 2px solid #d9c89e;
   outline: none;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -53,7 +53,7 @@
   font-size: 16px;
   color: #333;
   font-weight: 700;
-  background-color: #D9C89E;
+  background-color: #d9c89e;
 }
 
 button:hover,
@@ -66,7 +66,7 @@ button:focus,
 .input-box#a input::placeholder {
   color: rgb(160, 217, 239);
 }
-.input-box#a input{
+.input-box#a input {
   color: rgb(160, 217, 239);
   border: 2px solid rgb(160, 217, 239);
 }
@@ -74,7 +74,7 @@ button:focus,
 .input-box#b input::placeholder {
   color: #ffd1dc;
 }
-.input-box#b input{
+.input-box#b input {
   color: #ffd1dc;
   border: 2px solid #ffd1dc;
 }
@@ -82,23 +82,22 @@ button:focus,
 .input-box#c input::placeholder {
   color: #f6b89e;
 }
-.input-box#c input{
+.input-box#c input {
   color: #f6b89e;
   border: 2px solid #f6b89e;
 }
 
-
 .input-box#d input::placeholder {
   color: #a2d591;
 }
-.input-box#d input{
+.input-box#d input {
   color: #a2d591;
   border: 2px solid #a2d591;
 }
 
 .input-box#e input::placeholder {
-  color: #E6BD37;
+  color: #e6bd37;
 }
-.input-box#e input{
-  border: 2px solid #E6BD37;
+.input-box#e input {
+  border: 2px solid #e6bd37;
 }

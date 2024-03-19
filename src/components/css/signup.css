@@ -7,12 +7,14 @@
   color: #fff;
   border-radius: 15px;
   padding: 30px 40px;
+  margin: auto;
+  margin-top: 200px;
 }
 
 .wrapper h1 {
   font-size: 36px;
   text-align: center;
-  color: #D9C89E;
+  color: #d9c89e;
 }
 
 .wrapper .input-box {
@@ -59,7 +61,7 @@
   color: #333;
   font-weight: 700;
   color: black;
-  background-color: #D9C89E;
+  background-color: #d9c89e;
 }
 
 button:hover,
@@ -69,11 +71,10 @@ button:focus,
   -webkit-ttransform: scale(1.1);
 }
 
-
 .input-box#x input::placeholder {
   color: rgb(160, 217, 239);
 }
-.input-box#x input{
+.input-box#x input {
   color: rgb(160, 217, 239);
   border: 2px solid rgb(160, 217, 239);
 }
@@ -81,7 +82,7 @@ button:focus,
 .input-box#y input::placeholder {
   color: rgb(160, 217, 239);
 }
-.input-box#y input{
+.input-box#y input {
   color: rgb(160, 217, 239);
   border: 2px solid rgb(160, 217, 239);
 }

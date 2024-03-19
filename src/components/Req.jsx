@@ -1,22 +1,35 @@
 import React from 'react'
 import "./css/req.css";
 
-export const Req = () => {
+const Req = () => {
   return (
-    <div className="wrapper">
+    <div className="container">
       <form action="">
-        <h1>Plead a favour!</h1>
-        <div className="input-box">
-          <input type="text" placeholder="Username" required />
-          <FaUser className="icon" />
-        </div>
-        <div className="input-box">
-          <input type="password" placeholder="Password" required />
-          <FaLock className="icon" />
+        <h1>PLEAD A FAVOUR!</h1>
+        <div className="input-box" id = "a">
+          <input type="text" placeholder="Date" required />
         </div>
 
-        <button type="submit">Please</button>
+        <div className="input-box" id = "b">
+          <input type="text" placeholder="Point of favour" required />
+        </div>
+
+        <div className="input-box" id = "c">
+          <input type="text" placeholder="Peasant" required />
+        </div>
+
+        <div className="input-box" id = "d">
+          <input type="text" placeholder="Patron" required />
+        </div>
+        
+        <div className="input-box" id = "e">
+          <input type="text" placeholder="Beers Promised" required />
+        </div>
+
+        <button type="submit">PLEASE</button>
       </form>
     </div>
   )
 }
+
+export default Req;

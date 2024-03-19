@@ -12,6 +12,7 @@
 .wrapper h1 {
   font-size: 36px;
   text-align: center;
+  color: #D9C89E;
 }
 
 .wrapper .input-box {
@@ -57,6 +58,8 @@
   font-size: 16px;
   color: #333;
   font-weight: 700;
+  color: black;
+  background-color: #D9C89E;
 }
 
 button:hover,
@@ -64,4 +67,21 @@ button:focus,
 .button:active {
   transform: scale(1.1);
   -webkit-ttransform: scale(1.1);
+}
+
+
+.input-box#x input::placeholder {
+  color: rgb(160, 217, 239);
+}
+.input-box#x input{
+  color: rgb(160, 217, 239);
+  border: 2px solid rgb(160, 217, 239);
+}
+
+.input-box#y input::placeholder {
+  color: rgb(160, 217, 239);
+}
+.input-box#y input{
+  color: rgb(160, 217, 239);
+  border: 2px solid rgb(160, 217, 239);
 }

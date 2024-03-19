@@ -2,22 +2,24 @@ import React from "react";
 import "./css/signup.css";
 import { FaUser, FaLock } from "react-icons/fa";
 
-export const Signup = () => {
+const Signup = () => {
   return (
     <div className="wrapper">
       <form action="">
-        <h1>Idenitfy Yourself</h1>
-        <div className="input-box">
+        <h1>IDENTIFICATION</h1>
+        <div className="input-box" id = "x">
           <input type="text" placeholder="Username" required />
           <FaUser className="icon" />
         </div>
-        <div className="input-box">
+        <div className="input-box" id = "y">
           <input type="password" placeholder="Password" required />
           <FaLock className="icon" />
         </div>
 
-        <button type="submit">Please</button>
+        <button type="submit">PLEASE</button>
       </form>
     </div>
   );
 };
+
+export default Signup;

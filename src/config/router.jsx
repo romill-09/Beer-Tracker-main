@@ -1,6 +1,6 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
-import Signup from "./components/Signup";
-import Req from "./components/Req";
+import Signup from "../components/Signup";
+import Req from "../components/Req";
 
 const router = createBrowserRouter([
     {
@@ -20,10 +20,11 @@ const router = createBrowserRouter([
         exact: true,
     },
     {
-        path: "/profile",
-        element: <UserDetails/>,
+        path: "/tracker",
+        element: <Tracker/>,
         exact: true,
     },
+    
     
 ]);
 

@@ -1,7 +1,7 @@
 import React from "react";
 import "./css/tracker.css";
 import AppBar from "./AppBar";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Link } from "react-router-dom";
 
 const Tracker = () => {
   return (
@@ -13,7 +13,6 @@ const Tracker = () => {
       <div className="table"></div>
 
       <div className="plead-button">
-        {/* Add Link component to navigate to the Req page */}
         <Link to="/req">
           <button type="submit">PLEAD A FAVOUR</button>
         </Link>

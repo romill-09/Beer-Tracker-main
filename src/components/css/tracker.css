@@ -1,8 +1,31 @@
-/* .appbar {
+.plead-button {
+  width: 250px;
+  background: transparent;
+  border-radius: 15px;
+  padding: 30px 40px;
+  margin: auto;
   position: fixed;
-  top: 0;
   left: 0;
+  right: 0;
+  bottom: 100px; 
+}
+
+.plead-button button {
   width: 100%;
-  background-color: #ffffff; /* Adjust background color as needed
-  z-index: 1000; 
-} */
+  height: 45px;
+  background: #d9c89e;
+  border: 2px solid #d9c89e;
+  outline: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  color: black;
+  font-weight: 700;
+}
+
+button:hover,
+button:focus,
+.button:active {
+  transform: scale(1.1);
+  -webkit-ttransform: scale(1.1);
+}

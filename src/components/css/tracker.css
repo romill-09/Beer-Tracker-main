@@ -7,7 +7,7 @@
   position: fixed;
   left: 0;
   right: 0;
-  bottom: 100px; 
+  bottom: 100px;
 }
 
 .plead-button button {
@@ -28,4 +28,77 @@ button:focus,
 .button:active {
   transform: scale(1.1);
   -webkit-ttransform: scale(1.1);
+}
+
+.beertable {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  position: relative;
+  top: 50px;
+}
+
+table {
+  width: 70%;
+  border-width: 1px;
+  border-color: #fff;
+  border-style: solid;
+  border-radius: 10px;
+  color: #fff;
+  border-spacing: 0px;
+  text-align: center;
+}
+
+table tbody tr td {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #fff;
+  border-right-width: 1px;
+  border-top-width: 1px;
+  border-bottom-width: 0px;
+  border-left-width: 0px;
+}
+
+table tbody tr td:last-child {
+  border-right: 0px;
+}
+
+.beertable table thead th:nth-child(1) {
+  color: rgb(160, 217, 239);
+}
+
+.beertable table thead th:nth-child(2) {
+  color: #ffd1dc;
+}
+
+.beertable table thead th:nth-child(3) {
+  color: #f6b89e;
+}
+
+.beertable table thead th:nth-child(4) {
+  color: #a2d591;
+}
+
+.beertable table thead th:nth-child(5) {
+  color: #e6bd37;
+}
+
+.beertable table tbody tr td:nth-child(1) {
+  color: rgb(160, 217, 239);
+}
+
+.beertable table tbody tr td:nth-child(2) {
+  color: #ffd1dc;
+}
+
+.beertable table tbody tr td:nth-child(3) {
+  color: #f6b89e; 
+}
+
+.beertable table tbody tr td:nth-child(4) {
+  color: #a2d591; 
+}
+
+.beertable table tbody tr td:nth-child(5) {
+  color: #e6bd37;
 }

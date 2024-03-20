@@ -8,18 +8,8 @@ import router from './config/router';
 function App() {
   const [count, setCount] = useState(0);
 
-  // return (
-  //   <>
-  //     <div>
-  //       {/* <Signup /> */}
-  //       <Tracker />
-  //     </div>
-  //   </>
-  // );
-
   return (
     <>
-      {/* <Signup/> */}
       <RouterProvider router={router} />
     </>
   )

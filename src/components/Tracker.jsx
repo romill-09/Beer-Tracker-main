@@ -2,8 +2,12 @@ import React from "react";
 import "./css/tracker.css";
 import AppBar from "./AppBar";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Tracker = () => {
+  const { logout } = useAuth();
+  const history = useNavigate();
 
   var heading = ["Date", "Point of favour", "Peasant", "Patron", "Beers owned"];
   var body = [
@@ -12,6 +16,15 @@ const Tracker = () => {
     ["Bill", "Los Angeles", "California", "cwe", "cwe"],
     ["John", "Lansing", "Michigan", "cwe", "cew"],
   ];
+
+  async function handleLogout() {
+    try {
+      await logout();
+      history('/login');
+    } catch {
+      console.log("Failed to log out");
+    }
+  }
 
   return (
     <>
@@ -50,6 +63,11 @@ const Tracker = () => {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Logout button */}
+      <div className="logout-button">
+        <button style={{ color: "#fff" }} onClick={handleLogout}>LOGOUT</button>
       </div>
     </>
   );

@@ -27,7 +27,6 @@ const Req = () => {
           <input type="text" placeholder="Beers Promised" required />
         </div>
 
-        {/* Add Link component to navigate back to Tracker */}
         <Link to="/tracker">
           <button type="submit">PLEASE</button>
         </Link>

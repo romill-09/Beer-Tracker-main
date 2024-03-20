@@ -92,13 +92,34 @@ table tbody tr td:last-child {
 }
 
 .beertable table tbody tr td:nth-child(3) {
-  color: #f6b89e; 
+  color: #f6b89e;
 }
 
 .beertable table tbody tr td:nth-child(4) {
-  color: #a2d591; 
+  color: #a2d591;
 }
 
 .beertable table tbody tr td:nth-child(5) {
   color: #e6bd37;
+}
+
+.logout-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.logout-button button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 17px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  outline: none;
+}
+
+.logout-button button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }

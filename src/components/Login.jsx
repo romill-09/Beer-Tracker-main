@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import { Alert } from "@mui/material";
 import { AuthProvider } from "../context/AuthContext";
 import "./css/login.css";
-import { createUserWithEmailAndPassword } from "firebase/auth"; // Corrected import
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebase";
 
 const Login = () => {
@@ -26,15 +26,15 @@ const Login = () => {
     try {
       setError("");
       setLoading(true);
-      await createUserWithEmailAndPassword(
+      await signInWithEmailAndPassword(
         auth,
         userNameRef.current.value,
         passwordRef.current.value
       );
       history("/tracker");
     } catch (error) {
-      console.error("Registration error:", error.message);
-      setError("Failed to register. Please try again.");
+      console.error("Login error:", error.message);
+      setError("Failed to Login. Please try again.");
     }
 
     setLoading(false);

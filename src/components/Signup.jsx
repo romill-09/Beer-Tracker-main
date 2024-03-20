@@ -29,7 +29,6 @@ const Signup = () => {
     try {
       setError("");
       setLoading(true);
-      // Use createUserWithEmailAndPassword instead of createUserwithUserNameAndPassword
       await createUserWithEmailAndPassword(
         auth,
         userNameRef.current.value,

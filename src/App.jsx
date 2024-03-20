@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import { RouterProvider } from "react-router-dom";
-import router from './config/router';
-// import { Signup } from './components/Signup';
-// import { Req } from './components/Req';
-
+import router from "./config/router";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </>
-  )
+  );
 }
 
 export default App;

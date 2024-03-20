@@ -4,14 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Alert } from "@mui/material";
 import { AuthProvider } from "../context/AuthContext";
-import "./css/signup.css";
+import "./css/login.css";
 import { createUserWithEmailAndPassword } from "firebase/auth"; // Corrected import
 import { auth } from "../config/firebase";
 
-const Signup = () => {
+const Login = () => {
   const userNameRef = useRef();
   const passwordRef = useRef();
-  const confirmpasswordRef = useRef();
   const { signup } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -19,9 +18,7 @@ const Signup = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (passwordRef.current.value !== confirmpasswordRef.current.value) {
-      return setError("Passwords do not match");
-    }
+
     if (passwordRef.current.value.length < 6) {
       return setError("Passwords must be 6 or more characters");
     }
@@ -29,13 +26,12 @@ const Signup = () => {
     try {
       setError("");
       setLoading(true);
-      // Use createUserWithEmailAndPassword instead of createUserwithUserNameAndPassword
       await createUserWithEmailAndPassword(
         auth,
         userNameRef.current.value,
         passwordRef.current.value
       );
-      history("/login");
+      history("/tracker");
     } catch (error) {
       console.error("Registration error:", error.message);
       setError("Failed to register. Please try again.");
@@ -69,22 +65,13 @@ const Signup = () => {
               />
               <FaLock className="icon" />
             </div>
-            <div className="input-box" id="z">
-              <input
-                type="password"
-                placeholder="Confirm Password"
-                ref={confirmpasswordRef}
-                required
-              />
-              <FaLock className="icon" />
-            </div>
             <button disabled={loading} type="submit">
               PLEASE
             </button>
           </form>
           <div className="link-container">
-            <Link className="signup-link" to="/login">
-              Already have an account? Log in
+            <Link className="signup-link" to="/signup">
+              Don,t have an account? Sign up
             </Link>
           </div>
         </div>
@@ -93,4 +80,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;

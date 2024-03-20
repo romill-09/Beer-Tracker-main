@@ -2,6 +2,7 @@ import { createBrowserRouter, Outlet } from "react-router-dom";
 import Signup from "../components/Signup";
 import Req from "../components/Req";
 import Tracker from "../components/Tracker";
+import Login from "../components/Login";
 
 const router = createBrowserRouter([
     {
@@ -23,6 +24,11 @@ const router = createBrowserRouter([
     {
         path: "/tracker",
         element: <Tracker/>,
+        exact: true,
+    },
+    {
+        path: "/login",
+        element: <Login/>,
         exact: true,
     },
     

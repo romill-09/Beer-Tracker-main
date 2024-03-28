@@ -1,6 +1,6 @@
 # Beer Tracker
 
-![Beer Tracker](https://beer-tracker-8c448.web.app/)
+![Beer Tracker](https://beer-tracker-8c448.web.app)
 
 Beer Tracker is a web application designed to help you keep track of your beer consumption and preferences. Whether you're a casual beer enthusiast or a connoisseur, Beer Tracker provides a convenient way to log and organize your favorite brews.
 

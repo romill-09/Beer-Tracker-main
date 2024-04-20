@@ -124,9 +124,11 @@ table tbody tr td:last-child {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* @media screen and (max-width: 600px) {
-  .table-container {
-    overflow-x: auto;
-    width: 100%;
-  }  
-} */
+@media screen and (max-width: 600px) {
+  .beertable {
+    overflow: auto;
+    width:auto;
+    padding-left: 170px;
+    padding-right: 17px;
+  }
+}

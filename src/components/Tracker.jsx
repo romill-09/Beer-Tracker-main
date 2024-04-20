@@ -62,31 +62,29 @@ const Tracker = () => {
         </Link>
       </div>
 
-      <div className="table-container">
-        <div className="beertable">
-          <table>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Point of Favour</th>
-                <th>Peasant</th>
-                <th>Patron</th>
-                <th>Beers Promised</th>
+      <div className="beertable">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Point of Favour</th>
+              <th>Peasant</th>
+              <th>Patron</th>
+              <th>Beers Promised</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((row, rowIndex) => (
+              <tr key={rowIndex}>
+                <td>{row.date}</td>
+                <td>{row.pointOfFavour}</td>
+                <td>{row.peasant}</td>
+                <td>{row.patron}</td>
+                <td>{row.beersPromised}</td>
               </tr>
-            </thead>
-            <tbody>
-              {data.map((row, rowIndex) => (
-                <tr key={rowIndex}>
-                  <td>{row.date}</td>
-                  <td>{row.pointOfFavour}</td>
-                  <td>{row.peasant}</td>
-                  <td>{row.patron}</td>
-                  <td>{row.beersPromised}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       <div className="logout-button">

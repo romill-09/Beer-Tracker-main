@@ -1,3 +1,10 @@
+.photo {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  margin: 10px;
+}
+
 .wrapper {
   width: 420px;
   background: transparent;
@@ -8,7 +15,7 @@
   border-radius: 15px;
   padding: 30px 40px;
   margin: auto;
-  margin-top: 200px;
+  margin-top: 100px;
 }
 
 .wrapper h1 {
@@ -125,4 +132,15 @@ button:focus,
 
 .signup-link:hover {
   text-decoration: underline;
+}
+
+@media screen and (max-width: 600px) {
+  .photo1 {
+    width: 150px;
+  }
+  
+  .nav-wrapper {
+    display: flex;
+    justify-content: center;
+  }
 }

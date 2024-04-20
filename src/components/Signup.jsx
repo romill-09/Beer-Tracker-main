@@ -46,14 +46,19 @@ const Signup = () => {
   return (
     <AuthProvider>
       <React.Fragment>
+        <div className="nav-wrapper">
+          <Link to={auth ? "/signup" : "/"} className="left brand-logo">
+            <img src={"BT.png"} alt="Logo" className="photo" />
+          </Link>
+        </div>
         <div className="wrapper">
           {error && <Alert severity="error">{error}</Alert>}
           <form onSubmit={handleSubmit}>
-            <h1>IDENTIFICATION</h1>
+            <h1>SIGN UP!</h1>
             <div className="input-box" id="x">
               <input
                 type="text"
-                placeholder="Username"
+                placeholder="Email"
                 ref={userNameRef}
                 required
               />
@@ -61,7 +66,7 @@ const Signup = () => {
             </div>
             <div className="input-box" id="y">
               <input
-                type="password"
+                type="assword"
                 placeholder="Password"
                 ref={passwordRef}
                 required

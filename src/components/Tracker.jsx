@@ -52,11 +52,9 @@ const Tracker = () => {
 
   return (
     <>
-      <div className="appbar">
+      <div>
         <AppBar />
       </div>
-
-      <div className="table"></div>
 
       <div className="plead-button">
         <Link to="/req">
@@ -64,32 +62,33 @@ const Tracker = () => {
         </Link>
       </div>
 
-      <div className="beertable">
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Point of Favour</th>
-              <th>Peasant</th>
-              <th>Patron</th>
-              <th>Beers Promised</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((row, rowIndex) => (
-              <tr key={rowIndex}>
-                <td>{row.date}</td>
-                <td>{row.pointOfFavour}</td>
-                <td>{row.peasant}</td>
-                <td>{row.patron}</td>
-                <td>{row.beersPromised}</td>
+      <div className="table-container">
+        <div className="beertable">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Point of Favour</th>
+                <th>Peasant</th>
+                <th>Patron</th>
+                <th>Beers Promised</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {data.map((row, rowIndex) => (
+                <tr key={rowIndex}>
+                  <td>{row.date}</td>
+                  <td>{row.pointOfFavour}</td>
+                  <td>{row.peasant}</td>
+                  <td>{row.patron}</td>
+                  <td>{row.beersPromised}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      {/* Logout button */}
       <div className="logout-button">
         <button style={{ color: "#fff" }} onClick={handleLogout}>
           LOGOUT

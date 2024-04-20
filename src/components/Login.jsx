@@ -43,6 +43,11 @@ const Login = () => {
   return (
     <AuthProvider>
       <React.Fragment>
+        <div className="nav-wrapper">
+          <Link to={auth ? "/login" : "/"} className="left brand-logo">
+            <img src={"BT.png"} alt="Logo" className="photo" />
+          </Link>
+        </div>
         <div className="wrapper">
           {error && <Alert severity="error">{error}</Alert>}
           <form onSubmit={handleSubmit}>
@@ -50,7 +55,7 @@ const Login = () => {
             <div className="input-box" id="x">
               <input
                 type="text"
-                placeholder="Username"
+                placeholder="Email"
                 ref={userNameRef}
                 required
               />

@@ -54,11 +54,11 @@ const Signup = () => {
         <div className="wrapper">
           {error && <Alert severity="error">{error}</Alert>}
           <form onSubmit={handleSubmit}>
-            <h1>SIGN UP!</h1>
+            <h1>IDENTIFICATION</h1>
             <div className="input-box" id="x">
               <input
                 type="text"
-                placeholder="Email"
+                placeholder="Username"
                 ref={userNameRef}
                 required
               />
@@ -66,7 +66,7 @@ const Signup = () => {
             </div>
             <div className="input-box" id="y">
               <input
-                type="assword"
+                type="password"
                 placeholder="Password"
                 ref={passwordRef}
                 required

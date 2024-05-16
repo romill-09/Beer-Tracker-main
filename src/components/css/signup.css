@@ -8,7 +8,7 @@
   .photo1 {
     width: 150px;
   }
-  
+
   .nav-wrapper {
     display: flex;
     justify-content: center;
@@ -58,6 +58,10 @@
   color: #fff;
 }
 
+.input-box input:focus::placeholder {
+  color: transparent !important;
+}
+
 .input-box .icon {
   position: absolute;
   right: 20px;
@@ -80,13 +84,11 @@
   font-weight: 700;
   color: black;
   background-color: #d9c89e;
+  transition: transform 0.3s ease;
 }
 
-button:hover,
-button:focus,
-.button:active {
+.wrapper button:hover {
   transform: scale(1.1);
-  -webkit-ttransform: scale(1.1);
 }
 
 .input-box#x input::placeholder {

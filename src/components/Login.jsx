@@ -29,7 +29,7 @@ const Login = () => {
       await signInWithEmailAndPassword(
         auth,
         userNameRef.current.value,
-        passwordRef.current.value
+        passwordRef.current.value,
       );
       history("/tracker");
     } catch (error) {
@@ -43,19 +43,19 @@ const Login = () => {
   return (
     <AuthProvider>
       <React.Fragment>
-        <div className="nav-wrapper">
+        {/* <div className="nav-wrapper">
           <Link to={auth ? "/login" : "/"} className="left brand-logo">
             <img src={"BT.png"} alt="Logo" className="photo" />
           </Link>
-        </div>
+        </div> */}
         <div className="wrapper">
           {error && <Alert severity="error">{error}</Alert>}
           <form onSubmit={handleSubmit}>
-            <h1>IDENTIFICATION</h1>
+            <h1>KNOCK KNOCK</h1>
             <div className="input-box" id="x">
               <input
                 type="text"
-                placeholder="Email"
+                placeholder="Username"
                 ref={userNameRef}
                 required
               />

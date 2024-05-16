@@ -1,43 +1,74 @@
-import React, { useRef, useState } from "react";
-import { FaUser, FaLock } from "react-icons/fa";
+import React, { useRef, useState, useEffect } from "react";
+import { FaUser, FaEye, FaEyeSlash, FaLock } from "react-icons/fa"; // Import FaEye and FaEyeSlash
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import { Alert } from "@mui/material";
 import { AuthProvider } from "../context/AuthContext";
-import "./css/signup.css";
-import { createUserWithEmailAndPassword } from "firebase/auth"; // Corrected import
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebase";
 
 const Signup = () => {
   const userNameRef = useRef();
   const passwordRef = useRef();
   const confirmpasswordRef = useRef();
-  const { signup } = useAuth();
-  const [error, setError] = useState("");
+  const [usernameError, setUsernameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const history = useNavigate();
+
+  useEffect(() => {
+    // Event listener to detect clicks outside the password input
+    function handleClickOutside(event) {
+      if (passwordRef.current && !passwordRef.current.contains(event.target)) {
+        setShowPassword(false); // Hide password when clicked outside the input
+      }
+    }
+
+    // Add event listener when component mounts
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Remove event listener when component unmounts
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleNameChange = (evt) => {
+    const newName = evt.target.value.replace(/[^a-z0-9@.]/g, "");
+    if (evt.target.value !== newName) {
+      setUsernameError(
+        "Only lowercase letters, numbers, '@' and '.' are allowed",
+      );
+    } else {
+      setUsernameError("");
+    }
+    userNameRef.current.value = newName;
+  };
 
   async function handleSubmit(e) {
     e.preventDefault();
     if (passwordRef.current.value !== confirmpasswordRef.current.value) {
-      return setError("Passwords do not match");
+      return setConfirmPasswordError("Passwords do not match");
     }
     if (passwordRef.current.value.length < 6) {
-      return setError("Passwords must be 6 or more characters");
+      return setPasswordError("Passwords must be 6 or more characters");
     }
 
     try {
-      setError("");
+      setUsernameError("");
+      setPasswordError("");
+      setConfirmPasswordError("");
       setLoading(true);
       await createUserWithEmailAndPassword(
         auth,
         userNameRef.current.value,
-        passwordRef.current.value
+        passwordRef.current.value,
       );
       history("/login");
     } catch (error) {
       console.error("Registration error:", error.message);
-      setError("Failed to register. Please try again.");
+      setPasswordError("Failed to register. Please try again.");
     }
 
     setLoading(false);
@@ -45,54 +76,65 @@ const Signup = () => {
 
   return (
     <AuthProvider>
-      <React.Fragment>
-        <div className="nav-wrapper">
-          <Link to={auth ? "/signup" : "/"} className="left brand-logo">
-            <img src={"BT.png"} alt="Logo" className="photo" />
-          </Link>
-        </div>
-        <div className="wrapper">
-          {error && <Alert severity="error">{error}</Alert>}
-          <form onSubmit={handleSubmit}>
-            <h1>IDENTIFICATION</h1>
-            <div className="input-box" id="x">
-              <input
-                type="text"
-                placeholder="Username"
-                ref={userNameRef}
-                required
+      <div className="wrapper">
+        <form onSubmit={handleSubmit}>
+          <h1>JOIN THE CULT</h1>
+          <div className="input-box" id="x">
+            <input
+              type="text"
+              id="myInput"
+              placeholder="Username"
+              ref={userNameRef}
+              onChange={handleNameChange}
+              required
+            />
+            <FaUser className="icon" />
+            {usernameError && <Alert severity="error">{usernameError}</Alert>}
+          </div>
+          <div className="input-box" id="y">
+            <input
+              type={showPassword ? "text" : "password"} // Toggle password visibility
+              placeholder="Password"
+              ref={passwordRef}
+              required
+            />
+            {showPassword ? (
+              <FaEyeSlash
+                className="icon" // Eye slash icon when password is visible
+                onClick={() => setShowPassword(false)}
               />
-              <FaUser className="icon" />
-            </div>
-            <div className="input-box" id="y">
-              <input
-                type="password"
-                placeholder="Password"
-                ref={passwordRef}
-                required
+            ) : (
+              <FaEye
+                className="icon" // Eye icon to show password
+                onClick={() => setShowPassword(true)}
               />
-              <FaLock className="icon" />
-            </div>
-            <div className="input-box" id="z">
-              <input
-                type="password"
-                placeholder="Confirm Password"
-                ref={confirmpasswordRef}
-                required
-              />
-              <FaLock className="icon" />
-            </div>
-            <button disabled={loading} type="submit">
+            )}
+            {passwordError && <Alert severity="error">{passwordError}</Alert>}
+          </div>
+          <div className="input-box" id="z">
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              ref={confirmpasswordRef}
+              required
+            />
+            <FaLock className="icon" />
+            {confirmPasswordError && (
+              <Alert severity="error">{confirmPasswordError}</Alert>
+            )}
+          </div>
+          <div className="button-container">
+            <button className="button" disabled={loading} type="submit">
               PLEASE
             </button>
-          </form>
-          <div className="link-container">
-            <Link className="signup-link" to="/login">
-              Already have an account? Log in
-            </Link>
           </div>
+        </form>
+        <div className="link-container">
+          <Link className="signup-link" to="/login">
+            Already have an account? Log in
+          </Link>
         </div>
-      </React.Fragment>
+      </div>
     </AuthProvider>
   );
 };

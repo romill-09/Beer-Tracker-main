@@ -42,7 +42,7 @@ const Req = () => {
         beersPromised,
       });
       console.log("Document written with ID: ", docRef.id);
-      history('/tracker')
+      history("/tracker");
       // Optionally, redirect or show a success message
     } catch (error) {
       console.error("Error adding document: ", error);
@@ -50,62 +50,69 @@ const Req = () => {
   };
 
   return (
-    <div className="container">
-      <form onSubmit={handleSubmit}>
-        <h1>PLEAD A FAVOUR!</h1>
-        <div className="input-box" id="a">
-          <input
-            type="text"
-            placeholder="Date"
-            required
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-        </div>
+    <>
+      <div className="nav-wrapper">
+        <Link to={auth ? "/tracker" : "/"} className="left brand-logo">
+          <img src={"BT.png"} alt="Logo" className="photo" />
+        </Link>
+      </div>
+      <div className="container">
+        <form onSubmit={handleSubmit}>
+          <h1>PLEAD A FAVOUR!</h1>
+          <div className="input-box" id="a">
+            <input
+              type="text"
+              placeholder="Date"
+              required
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+          </div>
 
-        <div className="input-box" id="b">
-          <input
-            type="text"
-            placeholder="Point of favour"
-            required
-            value={pointOfFavour}
-            onChange={(e) => setPointOfFavour(e.target.value)}
-          />
-        </div>
+          <div className="input-box" id="b">
+            <input
+              type="text"
+              placeholder="Point of favour"
+              required
+              value={pointOfFavour}
+              onChange={(e) => setPointOfFavour(e.target.value)}
+            />
+          </div>
 
-        <div className="input-box" id="c">
-          <input
-            type="text"
-            placeholder="Peasant"
-            required
-            value={peasant}
-            onChange={(e) => setPeasant(e.target.value)}
-          />
-        </div>
+          <div className="input-box" id="c">
+            <input
+              type="text"
+              placeholder="Peasant"
+              required
+              value={peasant}
+              onChange={(e) => setPeasant(e.target.value)}
+            />
+          </div>
 
-        <div className="input-box" id="d">
-          <input
-            type="text"
-            placeholder="Patron"
-            required
-            value={patron}
-            onChange={(e) => setPatron(e.target.value)}
-          />
-        </div>
+          <div className="input-box" id="d">
+            <input
+              type="text"
+              placeholder="Patron"
+              required
+              value={patron}
+              onChange={(e) => setPatron(e.target.value)}
+            />
+          </div>
 
-        <div className="input-box" id="e">
-          <input
-            type="text"
-            placeholder="Beers Promised"
-            required
-            value={beersPromised}
-            onChange={(e) => setBeersPromised(e.target.value)}
-          />
-        </div>
+          <div className="input-box" id="e">
+            <input
+              type="text"
+              placeholder="Beers Promised"
+              required
+              value={beersPromised}
+              onChange={(e) => setBeersPromised(e.target.value)}
+            />
+          </div>
 
-        <button type="submit">PLEASE</button>
-      </form>
-    </div>
+          <button type="submit">PLEASE</button>
+        </form>
+      </div>
+    </>
   );
 };
 

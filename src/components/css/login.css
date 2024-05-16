@@ -48,6 +48,10 @@
   color: #fff;
 }
 
+.input-box input:focus::placeholder {
+  color: transparent !important;
+}
+
 .input-box .icon {
   position: absolute;
   right: 20px;
@@ -135,10 +139,10 @@ button:focus,
 }
 
 @media screen and (max-width: 600px) {
-  .photo1 {
+  .photo {
     width: 150px;
   }
-  
+
   .nav-wrapper {
     display: flex;
     justify-content: center;

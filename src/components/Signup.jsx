@@ -15,6 +15,7 @@ const Signup = () => {
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+  const [passwordPrompt, setPasswordPrompt] = useState(""); // State to manage password prompts
   const history = useNavigate();
 
   useEffect(() => {
@@ -46,10 +47,25 @@ const Signup = () => {
     userNameRef.current.value = newName;
   };
 
+  const handlePasswordChange = (evt) => {
+    const password = evt.target.value;
+    if (password.length === 1) {
+      setPasswordPrompt("For God’s Sake use four characters at least");
+    } else if (password.length >= 4 && !/\d/.test(password)) {
+      setPasswordPrompt("Add a bloody number sucker");
+    } else if (/\d/.test(password) && !/[!@#$%^&*]/.test(password)) {
+      setPasswordPrompt(
+        "Add a special symbol goddamnit. You don’t fucking learn, do you?",
+      );
+    } else {
+      setPasswordPrompt("");
+    }
+  };
+
   async function handleSubmit(e) {
     e.preventDefault();
     if (passwordRef.current.value !== confirmpasswordRef.current.value) {
-      return setConfirmPasswordError("Passwords do not match");
+      return setConfirmPasswordError("Do you have a memory problem?");
     }
     if (passwordRef.current.value.length < 6) {
       return setPasswordError("Passwords must be 6 or more characters");
@@ -96,6 +112,7 @@ const Signup = () => {
               type={showPassword ? "text" : "password"} // Toggle password visibility
               placeholder="Password"
               ref={passwordRef}
+              onChange={handlePasswordChange}
               required
             />
             {showPassword ? (
@@ -109,6 +126,7 @@ const Signup = () => {
                 onClick={() => setShowPassword(true)}
               />
             )}
+            {passwordPrompt && <Alert severity="info">{passwordPrompt}</Alert>}
             {passwordError && <Alert severity="error">{passwordError}</Alert>}
           </div>
           <div className="input-box" id="z">

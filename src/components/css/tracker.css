@@ -55,7 +55,7 @@ button:focus,
   justify-content: center;
   /* justify-items: center; */
   position: relative;
-  top: 0px;
+  top: 50px;
   height: 400px; /* Set a fixed height */
   overflow: auto;
 }

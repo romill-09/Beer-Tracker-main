@@ -17,6 +17,7 @@ const BeerTicker = () => {
 
       data.forEach((entry) => {
         const { peasant, patron, beersPromised } = entry;
+        const beers = Number(beersPromised); // Ensure beersPromised is treated as a number
 
         if (!nameBalanceMap.has(peasant)) {
           nameBalanceMap.set(peasant, 0);
@@ -27,9 +28,9 @@ const BeerTicker = () => {
 
         nameBalanceMap.set(
           peasant,
-          nameBalanceMap.get(peasant) - beersPromised,
+          nameBalanceMap.get(peasant) - beers,
         );
-        nameBalanceMap.set(patron, nameBalanceMap.get(patron) + beersPromised);
+        nameBalanceMap.set(patron, nameBalanceMap.get(patron) + beers);
       });
 
       const tickerItems = Array.from(nameBalanceMap.entries()).map(
@@ -86,21 +87,40 @@ const BeerTicker = () => {
   return (
     <div className="ticker-container" ref={tickerRef}>
       <div className="ticker">
-        {tickerData.map(({ name, balance }) => (
-          <div key={name} className="ticker-item">
-            <span>
-              {name} ({balance} beers)
-            </span>{" "}
-            {/* Comment out this line to hide beer numbers */}
-            {balance > 0 ? (
-              <span className="triangle-up">▲</span>
-            ) : balance < 0 ? (
-              <span className="triangle-down">▼</span>
-            ) : (
-              <span className="circle">●</span>
-            )}
-          </div>
-        ))}
+        {tickerData.length > 0 ? (
+          <>
+            {tickerData.map(({ name, balance }) => (
+              <div key={name} className="ticker-item">
+                <span>
+                  {name} ({balance} beers)
+                </span>{" "}
+                {balance > 0 ? (
+                  <span className="triangle-up">▲</span>
+                ) : balance < 0 ? (
+                  <span className="triangle-down">▼</span>
+                ) : (
+                  <span className="circle">●</span>
+                )}
+              </div>
+            ))}
+            {tickerData.map(({ name, balance }) => (
+              <div key={name + "_duplicate"} className="ticker-item">
+                <span>
+                  {name} ({balance} beers)
+                </span>{" "}
+                {balance > 0 ? (
+                  <span className="triangle-up">▲</span>
+                ) : balance < 0 ? (
+                  <span className="triangle-down">▼</span>
+                ) : (
+                  <span className="circle">●</span>
+                )}
+              </div>
+            ))}
+          </>
+        ) : (
+          <div className="ticker-item">Loading...</div>
+        )}
       </div>
     </div>
   );

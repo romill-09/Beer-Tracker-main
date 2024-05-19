@@ -71,14 +71,14 @@ const Login = () => {
               <FaLock className="icon" />
             </div>
             <button disabled={loading} type="submit">
-              PLEASE
+              I'm so desperate
             </button>
           </form>
-          <div className="link-container">
+          {/* <div className="link-container">
             <Link className="signup-link" to="/signup">
               Don't have an account? Sign up
             </Link>
-          </div>
+          </div> */}
         </div>
       </React.Fragment>
     </AuthProvider>

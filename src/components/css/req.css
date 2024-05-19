@@ -15,7 +15,8 @@
   border-radius: 15px;
   padding: 30px 40px;
   display: flex;
-  margin: 50px auto;
+  margin: auto;
+  margin-top: 30px;
 }
 
 .container h1 {
@@ -68,6 +69,7 @@
   color: #333;
   font-weight: 700;
   background-color: #d9c89e;
+  color: #000;
 }
 
 button:hover,

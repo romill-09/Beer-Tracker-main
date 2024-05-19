@@ -52,10 +52,10 @@ const Signup = () => {
     if (password.length === 1) {
       setPasswordPrompt("For God’s Sake use four characters at least");
     } else if (password.length >= 4 && !/\d/.test(password)) {
-      setPasswordPrompt("Add a bloody number sucker");
+      setPasswordPrompt("Add a bloody number!");
     } else if (/\d/.test(password) && !/[!@#$%^&*]/.test(password)) {
       setPasswordPrompt(
-        "Add a special symbol goddamnit. You don’t fucking learn, do you?",
+        "Add a special symbol goddamnit. You never learn, do you?",
       );
     } else {
       setPasswordPrompt("");
@@ -149,7 +149,7 @@ const Signup = () => {
         </form>
         <div className="link-container">
           <Link className="signup-link" to="/login">
-            Already have an account? Log in
+            Wasted time before? Login
           </Link>
         </div>
       </div>

@@ -31,22 +31,51 @@ button:focus,
 }
 
 .beertable {
+  width: 100%;
+  max-height: 400px; /* Set a maximum height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  scrollbar-width: none; /* Hide scrollbar in Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar in Internet Explorer and Edge */
+}
+
+.beertable::-webkit-scrollbar {
+  display: none; /* Hide scrollbar in Webkit browsers */
+}
+
+/* Sticky header */
+.beertable thead th {
+  position: sticky;
+  top: 0;
+  background-color: #000; /* Ensure background matches your existing style */
+  z-index: 1;
+}
+
+.beertable {
   display: flex;
   justify-content: center;
-  justify-items: center;
+  /* justify-items: center; */
   position: relative;
-  top: 100px;
+  top: 0px;
+  height: 400px; /* Set a fixed height */
+  overflow: auto;
 }
 
 table {
   width: 70%;
-  border-width: 1px;
+  border-width: 0px;
   border-color: #fff;
   border-style: solid;
   border-radius: 10px;
   color: #fff;
   border-spacing: 0px;
   text-align: center;
+}
+
+table thead th {
+  border-width: 0px;
+  border-style: solid;
+  border-color: #fff;
+  padding: 8px; /* Add padding for better spacing */
 }
 
 table tbody tr td {
@@ -57,6 +86,7 @@ table tbody tr td {
   border-top-width: 1px;
   border-bottom-width: 0px;
   border-left-width: 0px;
+  padding: 6px;
 }
 
 table tbody tr td:last-child {
@@ -127,8 +157,56 @@ table tbody tr td:last-child {
 @media screen and (max-width: 600px) {
   .beertable {
     overflow: auto;
-    width:auto;
+    width: auto;
     padding-left: 170px;
     padding-right: 25px;
   }
+}
+
+#ticker-container {
+  display: flex;
+  width: 80%;
+  overflow: auto;
+  justify-content: center;
+  background-color: rgb(160, 217, 239);
+  margin: auto;
+  margin-bottom: 20px;
+  height: 40px;
+}
+
+.username {
+  margin-right: 10px; /* Adjust spacing between username and symbol */
+  padding: 10px;
+}
+
+.symbol {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  vertical-align: middle; /* Align symbols vertically */
+}
+
+.ticker-item {
+  display: flex;
+  align-items: center; /* Center-align ticker items */
+  margin-right: 20px; /* Adjust spacing between ticker items */
+}
+
+.upward-triangle {
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid green;
+}
+
+.downward-triangle {
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid red;
+}
+
+.circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: yellow;
 }

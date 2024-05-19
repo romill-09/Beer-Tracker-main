@@ -1,0 +1,47 @@
+.ticker-container {
+  width: 80%;
+  height: 40px;
+  background-color: #000;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  margin: auto;
+  top: 20px;
+}
+
+.ticker {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.ticker-item {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  color: white;
+}
+
+.triangle-up {
+  color: green;
+  margin-left: 5px;
+}
+
+.triangle-down {
+  color: red;
+  margin-left: 5px;
+}
+
+.circle {
+  color: yellow;
+  margin-left: 5px;
+}

@@ -8,6 +8,7 @@ import { db } from "../config/firebase";
 import { getDocs, collection } from "@firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../config/firebase";
+import BeerTicker from "./BeerTicker";
 
 const Tracker = () => {
   const { logout } = useAuth();
@@ -16,8 +17,6 @@ const Tracker = () => {
   const [user, setUser] = useState(null);
   const tableRef = useRef(null);
   const scrollInterval = useRef(null);
-  const [peasantNames, setPeasantNames] = useState([]);
-  const [patronNames, setPatronNames] = useState([]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -40,14 +39,6 @@ const Tracker = () => {
         id: doc.id,
       }));
       setData(data);
-
-      // Fetch unique peasant names
-      const uniquePeasantNames = [...new Set(data.map((row) => row.peasant))];
-      setPeasantNames(uniquePeasantNames);
-
-      // Fetch unique patron names
-      const uniquePatronNames = [...new Set(data.map((row) => row.patron))];
-      setPatronNames(uniquePatronNames);
     };
 
     fetchData();
@@ -100,73 +91,14 @@ const Tracker = () => {
     };
   }, []);
 
-  // Function to calculate total beers due and owed for a user
-  function calculateTotalBeers(name, role) {
-    const filteredData = data.filter(
-      (row) =>
-        (role === "peasant" && row.peasant === name) ||
-        (role === "patron" && row.patron === name),
-    );
-
-    const totalBeersDue = filteredData.reduce(
-      (total, row) => total + row.beersDue,
-      0,
-    );
-    const totalBeersOwed = filteredData.reduce(
-      (total, row) => total + row.beersOwed,
-      0,
-    );
-
-    return { totalBeersDue, totalBeersOwed };
-  }
-
   return (
     <>
       <div>
         <AppBar />
       </div>
 
-      <div id="ticker-container">
-        {peasantNames.map((name, index) => {
-          const { totalBeersDue, totalBeersOwed } = calculateTotalBeers(
-            name,
-            "peasant",
-          );
-          return (
-            <div className="ticker-item" key={index}>
-              <span className="username">{name}</span>
-              <span className="symbol">
-                {totalBeersDue < totalBeersOwed ? (
-                  <span className="upward-triangle"></span>
-                ) : totalBeersDue > totalBeersOwed ? (
-                  <span className="downward-triangle"></span>
-                ) : (
-                  <span className="circle"></span>
-                )}
-              </span>
-            </div>
-          );
-        })}
-        {patronNames.map((name, index) => {
-          const { totalBeersDue, totalBeersOwed } = calculateTotalBeers(
-            name,
-            "patron",
-          );
-          return (
-            <div className="ticker-item" key={index}>
-              <span className="username">{name}</span>
-              <span className="symbol">
-                {totalBeersDue < totalBeersOwed ? (
-                  <span className="upward-triangle"></span>
-                ) : totalBeersDue > totalBeersOwed ? (
-                  <span className="downward-triangle"></span>
-                ) : (
-                  <span className="circle"></span>
-                )}
-              </span>
-            </div>
-          );
-        })}
+      <div>
+        <BeerTicker />
       </div>
 
       <div className="plead-button">

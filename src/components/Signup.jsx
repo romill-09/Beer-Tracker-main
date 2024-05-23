@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { FaUser, FaEye, FaEyeSlash, FaLock } from "react-icons/fa"; // Import FaEye and FaEyeSlash
+import { FaUser, FaEye, FaEyeSlash, FaLock } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { Alert } from "@mui/material";
 import { AuthProvider } from "../context/AuthContext";
@@ -14,26 +14,41 @@ const Signup = () => {
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
-  const [passwordPrompt, setPasswordPrompt] = useState(""); // State to manage password prompts
+  const [showPassword, setShowPassword] = useState(false);
+  const [passwordPrompt, setPasswordPrompt] = useState("");
   const history = useNavigate();
 
   useEffect(() => {
-    // Event listener to detect clicks outside the password input
     function handleClickOutside(event) {
-      if (passwordRef.current && !passwordRef.current.contains(event.target)) {
-        setShowPassword(false); // Hide password when clicked outside the input
+      if (
+        passwordRef.current &&
+        !passwordRef.current.contains(event.target) &&
+        confirmpasswordRef.current &&
+        !confirmpasswordRef.current.contains(event.target) &&
+        userNameRef.current &&
+        !userNameRef.current.contains(event.target)
+      ) {
+        setUsernameError("");
+        setPasswordError("");
+        setConfirmPasswordError("");
+        setPasswordPrompt("");
       }
     }
 
-    // Add event listener when component mounts
     document.addEventListener("mousedown", handleClickOutside);
-
-    // Remove event listener when component unmounts
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    if (usernameError) {
+      const timer = setTimeout(() => {
+        setUsernameError("");
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [usernameError]);
 
   const handleNameChange = (evt) => {
     const newName = evt.target.value.replace(/[^a-z0-9@.]/g, "");
@@ -59,6 +74,22 @@ const Signup = () => {
       );
     } else {
       setPasswordPrompt("");
+    }
+  };
+
+  const handleFieldBlur = () => {
+    setUsernameError("");
+    setPasswordError("");
+    setConfirmPasswordError("");
+    setPasswordPrompt("");
+  };
+
+  const handleFieldFocus = (field) => {
+    if (field === "username" && userNameRef.current.value) {
+      handleNameChange({ target: userNameRef.current });
+    }
+    if (field === "password" && passwordRef.current.value) {
+      handlePasswordChange({ target: passwordRef.current });
     }
   };
 
@@ -95,53 +126,121 @@ const Signup = () => {
       <div className="wrapper">
         <form onSubmit={handleSubmit}>
           <h1>JOIN THE CULT</h1>
-          <div className="input-box" id="x">
+          <div
+            className={`input-box ${usernameError ? "has-error" : ""}`}
+            id="x"
+          >
             <input
               type="text"
               id="myInput"
               placeholder="Username"
               ref={userNameRef}
               onChange={handleNameChange}
+              onFocus={() => handleFieldFocus("username")}
+              onBlur={handleFieldBlur}
               required
             />
             <FaUser className="icon" />
-            {usernameError && <Alert severity="error">{usernameError}</Alert>}
+            {usernameError && (
+              <Alert
+                severity="error"
+                sx={{
+                  mt: 1,
+                  mb: 1,
+                  opacity: 1,
+                  position: "relative",
+                  zIndex: 1,
+                  width: "100%",
+                }}
+              >
+                {usernameError}
+              </Alert>
+            )}
           </div>
-          <div className="input-box" id="y">
+          <div
+            className={`input-box ${passwordError || passwordPrompt ? "has-error" : ""}`}
+            id="y"
+          >
             <input
-              type={showPassword ? "text" : "password"} // Toggle password visibility
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               ref={passwordRef}
               onChange={handlePasswordChange}
+              onFocus={() => handleFieldFocus("password")}
+              onBlur={handleFieldBlur}
               required
             />
             {showPassword ? (
               <FaEyeSlash
-                className="icon" // Eye slash icon when password is visible
+                className="icon"
                 onClick={() => setShowPassword(false)}
               />
             ) : (
-              <FaEye
-                className="icon" // Eye icon to show password
-                onClick={() => setShowPassword(true)}
-              />
+              <FaEye className="icon" onClick={() => setShowPassword(true)} />
             )}
-            {passwordPrompt && <Alert severity="info">{passwordPrompt}</Alert>}
-            {passwordError && <Alert severity="error">{passwordError}</Alert>}
+            {passwordPrompt && (
+              <Alert
+                severity="info"
+                sx={{
+                  mt: 1,
+                  mb: 1,
+                  opacity: 1,
+                  position: "relative",
+                  zIndex: 1,
+                  width: "100%",
+                }}
+              >
+                {passwordPrompt}
+              </Alert>
+            )}
+            {passwordError && (
+              <Alert
+                severity="error"
+                sx={{
+                  mt: 1,
+                  mb: 1,
+                  opacity: 1,
+                  position: "relative",
+                  zIndex: 1,
+                  width: "100%",
+                }}
+              >
+                {passwordError}
+              </Alert>
+            )}
           </div>
-          <div className="input-box" id="z">
+          <div
+            className={`input-box ${confirmPasswordError ? "has-error" : ""}`}
+            id="z"
+          >
             <input
               type="password"
               placeholder="Confirm Password"
               ref={confirmpasswordRef}
+              onFocus={handleFieldBlur}
+              onBlur={handleFieldBlur}
               required
             />
             <FaLock className="icon" />
             {confirmPasswordError && (
-              <Alert severity="error">{confirmPasswordError}</Alert>
+              <Alert
+                severity="error"
+                sx={{
+                  mt: 1,
+                  mb: 1,
+                  opacity: 1,
+                  position: "relative",
+                  zIndex: 1,
+                  width: "100%",
+                }}
+              >
+                {confirmPasswordError}
+              </Alert>
             )}
           </div>
-          <div className="button-container">
+          <div
+            className={`button-container ${usernameError || passwordError || confirmPasswordError || passwordPrompt ? "shifted" : ""}`}
+          >
             <button className="button" disabled={loading} type="submit">
               PLEASE
             </button>

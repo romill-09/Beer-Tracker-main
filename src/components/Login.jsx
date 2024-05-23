@@ -1,12 +1,12 @@
-import React, { useRef, useState } from "react";
-import { FaUser, FaLock } from "react-icons/fa";
+import React, { useRef, useState, useEffect } from "react";
+import { FaUser, FaEye, FaEyeSlash, FaLock } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Alert } from "@mui/material";
 import { AuthProvider } from "../context/AuthContext";
-import "./css/login.css";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebase";
+import "./css/login.css";
 
 const Login = () => {
   const userNameRef = useRef();
@@ -14,13 +14,48 @@ const Login = () => {
   const { signup } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [passwordError, setPasswordError] = useState("");
   const history = useNavigate();
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        passwordRef.current &&
+        !passwordRef.current.contains(event.target) &&
+        userNameRef.current &&
+        !userNameRef.current.contains(event.target)
+      ) {
+        setError("");
+        setPasswordError("");
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handlePasswordChange = (evt) => {
+    const password = evt.target.value;
+    if (password.length < 6) {
+      setPasswordError("Passwords must be 6 or more characters");
+    } else {
+      setPasswordError("");
+    }
+  };
+
+  const handleFieldBlur = () => {
+    setError("");
+    setPasswordError("");
+  };
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     if (passwordRef.current.value.length < 6) {
-      return setError("Passwords must be 6 or more characters");
+      return setPasswordError("Passwords must be 6 or more characters");
     }
 
     try {
@@ -43,13 +78,7 @@ const Login = () => {
   return (
     <AuthProvider>
       <React.Fragment>
-        {/* <div className="nav-wrapper">
-          <Link to={auth ? "/login" : "/"} className="left brand-logo">
-            <img src={"BT.png"} alt="Logo" className="photo" />
-          </Link>
-        </div> */}
         <div className="wrapper">
-          {error && <Alert severity="error">{error}</Alert>}
           <form onSubmit={handleSubmit}>
             <h1>KNOCK KNOCK</h1>
             <div className="input-box" id="x">
@@ -63,13 +92,38 @@ const Login = () => {
             </div>
             <div className="input-box" id="y">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 ref={passwordRef}
+                onChange={handlePasswordChange}
+                onBlur={handleFieldBlur}
                 required
               />
-              <FaLock className="icon" />
+              {showPassword ? (
+                <FaEyeSlash
+                  className="icon"
+                  onClick={() => setShowPassword(false)}
+                />
+              ) : (
+                <FaEye className="icon" onClick={() => setShowPassword(true)} />
+              )}
             </div>
+            {passwordError && (
+              <Alert
+                severity="error"
+                sx={{ mt: 1, mb: 1, opacity: 1, zIndex: 1 }}
+              >
+                {passwordError}
+              </Alert>
+            )}
+            {error && (
+              <Alert
+                severity="error"
+                sx={{ mt: 1, mb: 1, opacity: 1, zIndex: 1 }}
+              >
+                {error}
+              </Alert>
+            )}
             <button disabled={loading} type="submit">
               I'm so desperate
             </button>

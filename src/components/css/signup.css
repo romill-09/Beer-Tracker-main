@@ -42,6 +42,10 @@
   margin: 30px 0;
 }
 
+.input-box {
+  position: relative;
+}
+
 .input-box input {
   width: 100%;
   height: 100%;
@@ -113,6 +117,14 @@
 .input-box#z input {
   color: #ffd1dc;
   border: 2px solid #ffd1dc;
+}
+
+.input-box.has-error {
+  margin-top: 50px;
+}
+
+.button-container.shifted {
+  margin-top: 50px;
 }
 
 @media screen and (max-width: 600px) {

@@ -63,8 +63,8 @@ const Req = () => {
               type="date"
               placeholder="Date"
               required
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
+              value={date.trim()}
+              onChange={(e) => setDate(e.target.value.trim())}
               ref={dateInputRef}
               style={{ width: "100%", paddingRight: "40px" }}
             />
@@ -87,8 +87,8 @@ const Req = () => {
               type="text"
               placeholder="Point of favour"
               required
-              value={pointOfFavour}
-              onChange={(e) => setPointOfFavour(e.target.value)}
+              value={pointOfFavour.trim()}
+              onChange={(e) => setPointOfFavour(e.target.value.trim())}
             />
           </div>
 
@@ -97,8 +97,8 @@ const Req = () => {
               type="text"
               placeholder="Peasant"
               required
-              value={peasant}
-              onChange={(e) => setPeasant(e.target.value)}
+              value={peasant.trim()}
+              onChange={(e) => setPeasant(e.target.value.trim())}
               maxLength={20}
             />
           </div>
@@ -108,8 +108,8 @@ const Req = () => {
               type="text"
               placeholder="Patron"
               required
-              value={patron}
-              onChange={(e) => setPatron(e.target.value)}
+              value={patron.trim()}
+              onChange={(e) => setPatron(e.target.value.trim())}
               maxLength={20}
             />
           </div>
@@ -119,9 +119,9 @@ const Req = () => {
               type="number"
               placeholder="Beers Promised"
               required
-              value={beersPromised}
+              value={beersPromised.trim()}
               onChange={(e) => {
-                const value = e.target.value;
+                const value = e.target.value.trim();
                 if (
                   value === "" ||
                   (parseInt(value) >= 0 && parseInt(value) <= 99)

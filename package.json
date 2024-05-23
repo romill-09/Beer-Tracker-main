@@ -19,6 +19,7 @@
     "@mui/x-date-pickers": "^7.5.0",
     "date-fns": "^3.6.0",
     "firebase": "^10.9.0",
+    "jquery": "^3.7.1",
     "react": "^18.2.0",
     "react-calendar": "^4.8.0",
     "react-datepicker": "^6.6.0",

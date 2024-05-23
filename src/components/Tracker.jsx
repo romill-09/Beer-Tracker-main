@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef } from "react";
+/* global jQuery */
+import React, { useEffect, useState } from "react";
 import "./css/tracker.css";
 import AppBar from "./AppBar";
 import { Link } from "react-router-dom";
@@ -15,8 +16,6 @@ const Tracker = () => {
   const history = useNavigate();
   const [data, setData] = useState([]);
   const [user, setUser] = useState(null);
-  const tableRef = useRef(null);
-  const scrollInterval = useRef(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -54,42 +53,43 @@ const Tracker = () => {
   }
 
   useEffect(() => {
-    const table = tableRef.current;
+    // Define the jQuery plugin
+    jQuery.fn.extend({
+      pic_scroll: function () {
+        return this.each(function () {
+          var _this = jQuery(this);
+          var ul = _this.find("table");
+          var li = ul.find("tbody tr");
+          var w = li.length * li.outerHeight();
+          li.clone().prependTo(ul);
+          var i = 1,
+            l;
+          _this.hover(
+            function () {
+              i = 0;
+            },
+            function () {
+              i = 1;
+            },
+          );
+          function autoScroll() {
+            l = _this.scrollTop();
+            if (l >= w) {
+              _this.scrollTop(0);
+            } else {
+              _this.scrollTop(l + i);
+            }
+          }
+          var scrolling = setInterval(autoScroll, 50);
+        });
+      },
+    });
 
-    const scrollTable = () => {
-      if (table.scrollTop >= table.scrollHeight - table.clientHeight) {
-        table.scrollTop = 0;
-      } else {
-        table.scrollTop += 1;
-      }
-    };
-
-    const startScrolling = () => {
-      stopScrolling(); // Ensure any existing interval is cleared
-      scrollInterval.current = setInterval(scrollTable, 30);
-    };
-
-    const stopScrolling = () => {
-      if (scrollInterval.current) {
-        clearInterval(scrollInterval.current);
-      }
-    };
-
-    startScrolling();
-
-    table.addEventListener("mouseenter", stopScrolling);
-    table.addEventListener("mouseleave", startScrolling);
-    table.addEventListener("mousedown", stopScrolling);
-    table.addEventListener("mouseup", startScrolling);
-
-    return () => {
-      stopScrolling();
-      table.removeEventListener("mouseenter", stopScrolling);
-      table.removeEventListener("mouseleave", startScrolling);
-      table.removeEventListener("mousedown", stopScrolling);
-      table.removeEventListener("mouseup", startScrolling);
-    };
-  }, []);
+    // Call pic_scroll on .beertable after the component mounts
+    jQuery(function () {
+      jQuery(".beertable").pic_scroll();
+    });
+  }, []); // Empty dependency array to ensure it runs only once after mount
 
   return (
     <>
@@ -107,7 +107,7 @@ const Tracker = () => {
         </Link>
       </div>
 
-      <div className="beertable" ref={tableRef}>
+      <div className="beertable contain">
         <table>
           <thead>
             <tr>

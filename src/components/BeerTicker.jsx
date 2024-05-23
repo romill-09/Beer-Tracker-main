@@ -1,126 +1,88 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { db } from "../config/firebase";
 import { getDocs, collection } from "@firebase/firestore";
 import "./css/ticker.css";
 
 const BeerTicker = () => {
   const [tickerData, setTickerData] = useState([]);
-  const tickerRef = useRef(null);
-  const scrollInterval = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const querySnapshot = await getDocs(collection(db, "requests"));
-      const data = querySnapshot.docs.map((doc) => doc.data());
+      try {
+        const querySnapshot = await getDocs(collection(db, "requests"));
+        const data = querySnapshot.docs.map((doc) => doc.data());
 
-      const nameBalanceMap = new Map();
+        const nameBalanceMap = new Map();
 
-      data.forEach((entry) => {
-        const { peasant, patron, beersPromised } = entry;
-        const beers = Number(beersPromised); // Ensure beersPromised is treated as a number
+        data.forEach((entry) => {
+          const { peasant, patron, beersPromised } = entry;
+          const beers = Number(beersPromised); // Ensure beersPromised is treated as a number
 
-        if (!nameBalanceMap.has(peasant)) {
-          nameBalanceMap.set(peasant, 0);
-        }
-        if (!nameBalanceMap.has(patron)) {
-          nameBalanceMap.set(patron, 0);
-        }
+          if (!nameBalanceMap.has(peasant)) {
+            nameBalanceMap.set(peasant, 0);
+          }
+          if (!nameBalanceMap.has(patron)) {
+            nameBalanceMap.set(patron, 0);
+          }
 
-        nameBalanceMap.set(
-          peasant,
-          nameBalanceMap.get(peasant) - beers,
+          nameBalanceMap.set(peasant, nameBalanceMap.get(peasant) - beers);
+          nameBalanceMap.set(patron, nameBalanceMap.get(patron) + beers);
+        });
+
+        const tickerItems = Array.from(nameBalanceMap.entries()).map(
+          ([name, balance]) => ({
+            name,
+            balance,
+          }),
         );
-        nameBalanceMap.set(patron, nameBalanceMap.get(patron) + beers);
-      });
 
-      const tickerItems = Array.from(nameBalanceMap.entries()).map(
-        ([name, balance]) => ({
-          name,
-          balance,
-        }),
-      );
-
-      setTickerData(tickerItems);
+        setTickerData(tickerItems);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        // Handle error gracefully, e.g., display a message to the user
+      }
     };
 
     fetchData();
   }, []);
 
   useEffect(() => {
-    const ticker = tickerRef.current;
+    const scrollers = document.querySelectorAll(".ticker-container");
 
-    const scrollTicker = () => {
-      if (ticker.scrollLeft >= ticker.scrollWidth - ticker.clientWidth) {
-        ticker.scrollLeft = 0;
-      } else {
-        ticker.scrollLeft += 1;
-      }
-    };
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      addAnimation();
+    }
 
-    const startScrolling = () => {
-      stopScrolling(); // Ensure any existing interval is cleared
-      scrollInterval.current = setInterval(scrollTicker, 30);
-    };
+    function addAnimation() {
+      scrollers.forEach((scroller) => {
+        scroller.setAttribute("data-animated", true);
+        const scrollerInner = scroller.querySelector(".ticker");
+        const scrollerContent = Array.from(scrollerInner.children);
 
-    const stopScrolling = () => {
-      if (scrollInterval.current) {
-        clearInterval(scrollInterval.current);
-      }
-    };
-
-    startScrolling();
-
-    ticker.addEventListener("mouseenter", stopScrolling);
-    ticker.addEventListener("mouseleave", startScrolling);
-    ticker.addEventListener("mousedown", stopScrolling);
-    ticker.addEventListener("mouseup", startScrolling);
-
-    return () => {
-      stopScrolling();
-      ticker.removeEventListener("mouseenter", stopScrolling);
-      ticker.removeEventListener("mouseleave", startScrolling);
-      ticker.removeEventListener("mousedown", stopScrolling);
-      ticker.removeEventListener("mouseup", startScrolling);
-    };
+        Array.from(scrollerContent).forEach((item) => {
+          const duplicatedItem = item.cloneNode(true);
+          duplicatedItem.setAttribute("aria-hidden", true);
+          scrollerInner.appendChild(duplicatedItem);
+        });
+      });
+    }
   }, []);
 
   return (
-    <div className="ticker-container" ref={tickerRef}>
+    <div className="contain ticker-container" data-direction="left">
       <div className="ticker">
-        {tickerData.length > 0 ? (
-          <>
-            {tickerData.map(({ name, balance }) => (
-              <div key={name} className="ticker-item">
-                <span>
-                  {name} ({balance} beers)
-                </span>{" "}
-                {balance > 0 ? (
-                  <span className="triangle-up">▲</span>
-                ) : balance < 0 ? (
-                  <span className="triangle-down">▼</span>
-                ) : (
-                  <span className="circle">●</span>
-                )}
-              </div>
-            ))}
-            {tickerData.map(({ name, balance }) => (
-              <div key={name + "_duplicate"} className="ticker-item">
-                <span>
-                  {name} ({balance} beers)
-                </span>{" "}
-                {balance > 0 ? (
-                  <span className="triangle-up">▲</span>
-                ) : balance < 0 ? (
-                  <span className="triangle-down">▼</span>
-                ) : (
-                  <span className="circle">●</span>
-                )}
-              </div>
-            ))}
-          </>
-        ) : (
-          <div className="ticker-item">Loading...</div>
-        )}
+        {tickerData.map(({ name, balance }) => (
+          <div key={name} className="ticker-item">
+            <span>
+              {name} {balance} beers
+            </span>{" "}
+            {balance > 0 ? (
+              <span className="triangle-up">▲</span>
+            ) : (
+              <span className="triangle-down">▼</span>
+            )}
+          </div>
+        ))}
       </div>
     </div>
   );
